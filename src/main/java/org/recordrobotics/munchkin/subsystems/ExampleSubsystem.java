@@ -4,11 +4,21 @@
 
 package org.recordrobotics.munchkin.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExampleSubsystem extends SubsystemBase {
+  private CANSparkMax _spinny = new CANSparkMax(2, MotorType.kBrushless);
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
+  public ExampleSubsystem() {
+    _spinny.set(0);
+  }
+
+  public void spin(double speed) {
+    _spinny.set(speed);
+  }
 
   @Override
   public void periodic() {

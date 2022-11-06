@@ -6,21 +6,30 @@ package org.recordrobotics.munchkin.commands;
 
 import org.recordrobotics.munchkin.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import org.recordrobotics.munchkin.control.*;
 
 /** An example command that uses an example subsystem. */
 public class ExampleCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ExampleSubsystem m_subsystem;
+  private final IControlInput m_control;
+
+  private final double SPIN_SPEED = 0.3;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
+  public ExampleCommand(ExampleSubsystem subsystem, IControlInput controlInput) {
+    if (subsystem == null) {
+      throw new IllegalArgumentException("Subsystem is null");
+    }
+
     m_subsystem = subsystem;
+    m_control = controlInput;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -29,11 +38,23 @@ public class ExampleCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    switch (m_control.getFlywheel()) {
+      case OFF:
+        m_subsystem.spin(0);
+        return;
+      case LOW:
+        m_subsystem.spin(SPIN_SPEED/2);
+        break;
+      case HIGH:
+        m_subsystem.spin(SPIN_SPEED);
+        break;
+    }
+  }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+
+
+
 
   // Returns true when the command should end.
   @Override
