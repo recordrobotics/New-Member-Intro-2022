@@ -30,12 +30,12 @@ public class RobotContainer {
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		// Configure the button bindings
-		_controlInput = new LegacyControl(RobotMap.Control.LEGACY_GAMEPAD);
 		configureButtonBindings();
 		System.out.println(_controlInput != null);
 	}
 
 	public void teleopInit() {
+		System.out.println("It works!");
 		CommandScheduler.getInstance().schedule(true, m_teleCommand);
 	}
 
