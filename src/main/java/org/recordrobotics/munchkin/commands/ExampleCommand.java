@@ -25,6 +25,9 @@ public class ExampleCommand extends CommandBase {
     if (subsystem == null) {
       throw new IllegalArgumentException("Subsystem is null");
     }
+    if (controlInput == null) {
+      throw new IllegalArgumentException("Controller is null");
+    }
 
     m_subsystem = subsystem;
     m_control = controlInput;
