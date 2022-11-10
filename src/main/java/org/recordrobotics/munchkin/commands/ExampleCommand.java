@@ -47,11 +47,11 @@ public class ExampleCommand extends CommandBase {
       case OFF:
         m_subsystem.spin(0);
         return;
-      case LOW:
-        m_subsystem.spin(SPIN_SPEED/2);
-        break;
-      case HIGH:
+      case FORWARD:
         m_subsystem.spin(SPIN_SPEED);
+        break;
+      case BACKWARD:
+        m_subsystem.spin(-SPIN_SPEED);
         break;
     }
   }
