@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class RobotContainer {
 
-	private IControlInput _controlInput;
+	private IControlInput _controlInput = new LegacyControl(RobotMap.Control.LEGACY_GAMEPAD);
 
 	// The robot's subsystems and commands are defined here...
 	private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
