@@ -13,8 +13,8 @@ public interface IControlInput {
 	 */
 	enum FlywheelState {
 		OFF,
-		LOW,
-		HIGH
+		BACKWARD,
+		FORWARD
 	}
 
 	/**

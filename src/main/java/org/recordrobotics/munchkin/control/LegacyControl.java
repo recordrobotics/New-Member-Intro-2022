@@ -78,7 +78,7 @@ public class LegacyControl implements IControlInput {
 		}
 
 		// Otherwise Y determines the state
-		return _btnY ? FlywheelState.HIGH : FlywheelState.LOW;
+		return _btnY ? FlywheelState.FORWARD : FlywheelState.BACKWARD;
 	}
 
 	@Override
