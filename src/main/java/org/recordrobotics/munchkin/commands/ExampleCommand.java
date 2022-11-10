@@ -22,6 +22,7 @@ public class ExampleCommand extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   public ExampleCommand(ExampleSubsystem subsystem, IControlInput controlInput) {
+    System.out.println("Command Initialized");
     if (subsystem == null) {
       throw new IllegalArgumentException("Subsystem is null");
     }
@@ -42,7 +43,6 @@ public class ExampleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("It works!");
     switch (m_control.getFlywheel()) {
       case OFF:
         m_subsystem.spin(0);

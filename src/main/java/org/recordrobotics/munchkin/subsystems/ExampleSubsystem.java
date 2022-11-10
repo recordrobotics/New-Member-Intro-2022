@@ -13,6 +13,7 @@ public class ExampleSubsystem extends SubsystemBase {
   private CANSparkMax _spinny = new CANSparkMax(2, MotorType.kBrushless);
   /** Creates a new ExampleSubsystem. */
   public ExampleSubsystem() {
+    System.out.println("Subsystem Initialized");
     _spinny.set(0);
   }
 

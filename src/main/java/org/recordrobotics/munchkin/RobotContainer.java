@@ -25,18 +25,18 @@ public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
 	private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-	private final ExampleCommand m_teleCommand = new ExampleCommand(m_exampleSubsystem, _controlInput);
+//	private final ExampleCommand m_teleCommand = new ExampleCommand(m_exampleSubsystem, _controlInput);
 
 	/** The container for the robot. Contains subsystems, OI devices, and commands. */
 	public RobotContainer() {
 		// Configure the button bindings
 		configureButtonBindings();
+		System.out.println("Container Initialized");
 		System.out.println(_controlInput != null);
 	}
 
 	public void teleopInit() {
-		System.out.println("It works!");
-		CommandScheduler.getInstance().schedule(true, m_teleCommand);
+		CommandScheduler.getInstance().schedule(true, new ExampleCommand(m_exampleSubsystem, _controlInput));
 	}
 
 	/** la dee da dee da
