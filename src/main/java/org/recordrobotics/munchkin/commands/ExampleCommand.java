@@ -14,7 +14,8 @@ public class ExampleCommand extends CommandBase {
   private final ExampleSubsystem m_subsystem;
   private final IControlInput m_control;
 
-  private final double SPIN_SPEED = 0.3;
+  private double _time;
+  private double _controlScaleLong;
 
   /**
    * Creates a new ExampleCommand.
@@ -35,6 +36,23 @@ public class ExampleCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_subsystem);
   }
+  
+	public double calcNextCtrlScale(double currControlScale, double input, double time) {
+		double nextCtrlScale = 0.0;
+    int timeScale = 25;
+    
+    if(input == 0.0) {
+      timeScale = 15;
+    }
+    nextCtrlScale = currControlScale + (input - currControlScale)/timeScale;
+    if(Math.abs(input - currControlScale) <= 0.1) {
+      nextCtrlScale = input;
+    }
+		if(nextCtrlScale < -1.0 || nextCtrlScale > 1.0) {
+			nextCtrlScale = nextCtrlScale/Math.abs(nextCtrlScale);
+		}
+		return nextCtrlScale;
+	}
 
   // Called when the command is initially scheduled.
   @Override
@@ -43,17 +61,8 @@ public class ExampleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch (m_control.getFlywheel()) {
-      case OFF:
-        m_subsystem.spin(0);
-        return;
-      case FORWARD:
-        m_subsystem.spin(SPIN_SPEED);
-        break;
-      case BACKWARD:
-        m_subsystem.spin(-SPIN_SPEED);
-        break;
-    }
+    _controlScaleLong = calcNextCtrlScale(_controlScaleLong, m_control.getDriveLong(), _time);
+    m_subsystem.spin(_controlScaleLong * 0.5);
   }
 
 
